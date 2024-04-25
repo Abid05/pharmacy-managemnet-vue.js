@@ -6,14 +6,16 @@
             <h2>User Login</h2>
         </div>
 
-        <form action="#">
-            <label class="block">Username</label>
-            <input type="text" placeholder="Enter your username" required />
+        <form action="#" @submit.prevent="handleSubmit">
+            <label class="block">Email</label>
+            <input type="text" placeholder="Enter your username" v-model="formData.email" required />
 
             <label class="block mt-3">Password</label>
-            <input type="password" placeholder="Enter password" required />
+            <input type="password" placeholder="Enter password" v-model="formData.password" required />
 
-            <button type="submit" class="w-100 mt-3">Login</button>
+            <button class="w-100 mt-3">
+                Login
+            </button>
 
             <div class="d-flex jc-between mt-3">
                 <div>
@@ -32,8 +34,33 @@
 </template>
 
 <script>
-export default {
 
+export default {
+    data() {
+    return {
+      formData: {
+        email: "",
+        password: ""
+      }
+    }
+  },
+
+
+    methods: {
+        handleSubmit() {
+            console.log(this.formData);
+            if (!this.formData.email) {
+                // TODO: show error message on toast
+                alert("email can not be empty!");
+                return;
+            }
+            if (this.formData.password.length < 6) {
+                alert("Password must be at least 6 characters long!");
+                // TODO: show error message on toast
+                return;
+            }
+        }
+    }
 }
 </script>
 
