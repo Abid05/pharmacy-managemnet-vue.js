@@ -8,10 +8,10 @@
 
         <form action="#" @submit.prevent="handleSubmit">
             <label class="block">Email</label>
-            <input type="text" placeholder="Enter your username" v-model="formData.email" required />
+            <input type="text" placeholder="Enter your username" v-model="formData.email" required ref="email" />
 
             <label class="block mt-3">Password</label>
-            <input type="password" placeholder="Enter password" v-model="formData.password" required />
+            <input type="password" placeholder="Enter password" v-model="formData.password" required ref="password" />
 
             <button class="w-100 mt-3">
                 Login
@@ -50,17 +50,24 @@ export default {
         handleSubmit() {
             console.log(this.formData);
             if (!this.formData.email) {
-                // TODO: show error message on toast
-                alert("email can not be empty!");
+                this.$eventBus.emit('toast', {
+                    type: "Error",
+                    message: "email can not be empty!"
+                });
+                this.$refs.email.focus();
                 return;
             }
             if (this.formData.password.length < 6) {
-                alert("Password must be at least 6 characters long!");
-                // TODO: show error message on toast
+                this.$eventBus.emit('toast', {
+                    type: "Error",
+                    message: "Password must be at least 6 characters long!d"
+                });
+                this.$refs.password.focus();
                 return;
             }
         }
-    }
+    },
+
 }
 </script>
 
