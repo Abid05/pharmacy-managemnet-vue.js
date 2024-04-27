@@ -48,7 +48,6 @@ export default {
 
     methods: {
         handleSubmit() {
-            console.log(this.formData);
             if (!this.formData.email) {
                 this.$eventBus.emit('toast', {
                     type: "Error",
